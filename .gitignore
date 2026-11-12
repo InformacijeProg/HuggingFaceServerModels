@@ -1,0 +1,13 @@
+models/
+.hfserve/
+.vemv/
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+training/
+graphify-animation/
+graphify-out/
+.env
+rag/

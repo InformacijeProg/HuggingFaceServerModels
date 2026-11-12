@@ -1,0 +1,23 @@
+Books downloaded into training/books/ with the new hftrain fetch command (47 books, 21 MB, all from legal free sources, see docs/TRAINING.md):
+
+12 Croatian/English pairs with aligned paragraphs: Priče iz davnine / Croatian Tales of Long Ago, Walden, Dr Jekyll and Mr Hyde, The Invisible Man, The Island of Doctor Moreau, A Room with a View, Dubliners, Civil Disobedience, Walking, News from Nowhere, The Right to Be Lazy, La Rochefoucauld's Maxims. Croatian editions come from BEK (Besplatne elektroničke knjige) and Wikisource, the English originals from Project Gutenberg. The aligner found 7,701 paragraph pairs, and the samples match sentence for sentence.
+17 Croatian classics from Wikisource (Šenoa, Kovačić, Novak, Kozarac, Nehajev, Šimunović, Kumičić, Brlić-Mažuranić, Russian stories in Croatian) and 14 contemporary Croatian novels from BEK (Pavičić, Popović, Drndić, Simić, Koščec, Malkoč and others).
+Marx, Kapital, book one (Zagreb 1947, 903 pages): the only free Croatian edition is an OCR scan that had lost its diacritics. I added a diacritics restorer that learns a lexicon from the other books plus 20,000 Croatian Wikipedia articles and restored 32,000 words. The text still has letter-level OCR errors and 1947 vocabulary with Serbian traces, so use it as a small share of the corpus, not its core.
+What I rejected and why. The Serbo-Croatian Marx texts on marxists.org are the Belgrade translation in Serbian (ekavian vrednost, reč), which would teach the model Serbian forms. Meditations and Goldman's essays are downloaded as Croatian only, because their English editions align too poorly. Several BEK titles turned out to be poetry or unavailable and were swapped out.
+
+Corpus hr-v1 is built and tokenized, ready for training:
+
+Source	Documents	Text
+Your books, Croatian passages	6,057	16.1 MB
+Your books, English passages (replay)	1,110	2.9 MB
+Translation pairs from the books	7,701	5.6 MB
+Croatian Wikipedia	8,000	40.0 MB
+English FineWeb-Edu (replay)	1,500	6.9 MB
+That is 27.6M training tokens at sequence length 1024, roughly a 7-hour run on your card. Building it exposed a real bug I fixed: local sources were silently capped at 5,000 documents, so now your own books are never truncated. All 311 tests pass.
+
+Next step for you
+
+
+python -m hftrain train --data hr-v1 --run hr-lora-1
+python -m hftrain eval --run hr-lora-1 --compare-base
+The translation pairs teach meaning-level correspondence rather than word-for-word mapping, since each example is a whole aligned paragraph in both languages. Send me run.json, log.jsonl and the eval report when the run finishes and I will propose the next mix.

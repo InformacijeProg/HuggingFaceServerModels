@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hfserve"
+version = "0.1.0"
+description = "Serve HuggingFace models locally, Ollama style: pull, list, serve and chat from the console."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "torch>=2.4",
+    "transformers>=5.14,<6",
+    "accelerate>=0.30",
+    "safetensors>=0.4",
+    "huggingface_hub>=0.25",
+    "hf_xet",
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "httpx>=0.27",
+    "psutil>=5.9",
+    "colorama>=0.4",
+]
+
+[project.optional-dependencies]
+train = ["peft>=0.19.1", "datasets>=3.0"]
+
+[project.scripts]
+hfserve = "hfserve.cli:main"
+hftrain = "hftrain.cli:main"
+
+[tool.setuptools]
+packages = ["hfserve", "hftrain"]

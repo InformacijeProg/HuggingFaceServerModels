@@ -1,0 +1,10 @@
+# Extras for hftrain (fine-tuning). Install after requirements.txt:
+#   pip install -r requirements-train.txt
+peft>=0.19.1
+datasets>=3.0
+# optional: reading PDF books in training/books
+# pypdf>=4
+# web scraping of pages the downloaders cannot read (hftrain/webscrape.py)
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5

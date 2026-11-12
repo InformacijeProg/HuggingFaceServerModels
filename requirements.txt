@@ -1,0 +1,24 @@
+# Install PyTorch first with the CUDA build that matches your driver, e.g.
+#   pip install torch --index-url https://download.pytorch.org/whl/cu128
+# then:  pip install -r requirements.txt
+torch>=2.4
+transformers>=5.14,<6
+accelerate>=0.30
+safetensors>=0.4
+huggingface_hub>=0.25
+hf_xet
+fastapi>=0.110
+uvicorn[standard]>=0.29
+httpx>=0.27
+psutil>=5.9
+colorama>=0.4
+# hffiles (Excel, Word, PowerPoint and PDF in the GUI/CLI)
+openpyxl>=3.1
+python-docx>=1.1
+python-pptx>=1.0
+pypdf>=4
+reportlab>=4
+# PDF export of Office files needs a renderer: LibreOffice (any platform, nothing to
+# install here) or Microsoft Office through COM, which needs pywin32 on Windows.
+pywin32>=306; sys_platform == "win32"
+pytest>=8
